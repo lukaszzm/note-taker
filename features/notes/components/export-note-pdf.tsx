@@ -8,9 +8,14 @@ import { toast } from "sonner";
 interface ExportPDFNoteProps {
   noteId: string;
   noteTitle: string;
+  notePdfApiUrl: string;
 }
 
-export function ExportPDFNote({ noteId, noteTitle }: ExportPDFNoteProps) {
+export function ExportPDFNote({
+  noteId,
+  noteTitle,
+  notePdfApiUrl,
+}: ExportPDFNoteProps) {
   const { mutate } = useMutation({
     mutationFn: getPDFNote,
     onMutate: () => {
@@ -31,7 +36,7 @@ export function ExportPDFNote({ noteId, noteTitle }: ExportPDFNoteProps) {
   });
 
   return (
-    <DropdownMenuItem onClick={() => mutate(noteId)}>
+    <DropdownMenuItem onClick={() => mutate({ noteId, url: notePdfApiUrl })}>
       <Download />
       Export
     </DropdownMenuItem>

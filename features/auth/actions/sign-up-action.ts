@@ -2,7 +2,7 @@
 
 import { auth } from "@/features/auth/lib/auth";
 import { Credentials } from "@/features/auth/schemas/credentials-schema";
-import { redirect } from "next/navigation";
+import { getProxyUrl } from "@/features/shared/lib/proxy";
 
 export async function signUp(credentials: Credentials) {
   try {
@@ -14,7 +14,7 @@ export async function signUp(credentials: Credentials) {
       },
     });
 
-    return { success: true } as const;
+    return { success: true, url: getProxyUrl("/dashboard") } as const;
   } catch (err) {
     console.error("Sign up failed:", err);
     return {

@@ -1,3 +1,4 @@
+import { getProxyUrl } from "@/features/shared/lib/proxy";
 import { LogsIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -6,10 +7,12 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const homeHref = getProxyUrl(null);
+
   return (
     <div className="grid place-content-center min-h-screen bg-gray-100">
       <Link
-        href="/"
+        href={homeHref}
         aria-label="Back to Home page"
         className="flex items-center gap-2 top-0 left-1/2 transform -translate-x-1/2 absolute py-3"
       >

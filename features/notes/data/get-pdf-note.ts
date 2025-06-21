@@ -1,5 +1,13 @@
-export async function getPDFNote(noteId: string): Promise<Blob> {
-  const response = await fetch(`/api/notes/${noteId}/pdf`, {
+export async function getPDFNote({
+  noteId,
+  url,
+}: {
+  noteId: string;
+  url: string;
+}): Promise<Blob> {
+  const urlWithNoteId = url.replace(":noteId", noteId);
+
+  const response = await fetch(urlWithNoteId, {
     method: "GET",
     headers: {
       "Content-Type": "application/pdf",

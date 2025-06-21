@@ -1,4 +1,4 @@
-import { Note } from "@/app/types";
+import { Note } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,9 +14,15 @@ import { useState } from "react";
 
 interface NoteActionsMenuProps {
   note: Note;
+  noteByIdApiUrl: string;
+  notePdfApiUrl: string;
 }
 
-export function NoteActionsMenu({ note }: NoteActionsMenuProps) {
+export function NoteActionsMenu({
+  note,
+  noteByIdApiUrl,
+  notePdfApiUrl,
+}: NoteActionsMenuProps) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   return (
@@ -30,8 +36,12 @@ export function NoteActionsMenu({ note }: NoteActionsMenuProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <NotePreviewTrigger onClick={() => setIsPreviewOpen(true)} />
-          <ExportPDFNote noteId={note.id} noteTitle={note.title} />
-          <RemoveNote noteId={note.id} />
+          <ExportPDFNote
+            noteId={note.id}
+            noteTitle={note.title}
+            notePdfApiUrl={notePdfApiUrl}
+          />
+          <RemoveNote noteId={note.id} noteByIdApiUrl={noteByIdApiUrl} />
         </DropdownMenuContent>
       </DropdownMenu>
       <NotePreview

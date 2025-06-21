@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { auth } from "@/features/auth/lib/auth";
+import { getProxyUrl } from "@/features/shared/lib/proxy";
 
 export async function middleware(request: NextRequest) {
   const session = await auth.api.getSession({
@@ -8,12 +9,14 @@ export async function middleware(request: NextRequest) {
   });
 
   const isPublicRoute =
-    request.nextUrl.pathname.startsWith("/sign-in") ||
-    request.nextUrl.pathname.startsWith("/sign-up") ||
+    request.nextUrl.pathname.includes("sign-in") ||
+    request.nextUrl.pathname.includes("sign-up") ||
+    request.nextUrl.pathname.endsWith(process.env.PORT as string) ||
+    request.nextUrl.pathname.endsWith(process.env.LOGIN as string) ||
     request.nextUrl.pathname === "/";
 
   if (!session && !isPublicRoute) {
-    return NextResponse.redirect(new URL("/sign-in", request.url));
+    return NextResponse.redirect(new URL(getProxyUrl("/sign-in"), request.url));
   }
 
   return NextResponse.next();

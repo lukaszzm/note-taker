@@ -1,9 +1,8 @@
 "use server";
 
 import { auth } from "@/features/auth/lib/auth";
-import { Credentials } from "@/features/auth/schemas/credentials-schema";
+import { getProxyUrl } from "@/features/shared/lib/proxy";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 import { _success } from "zod/v4/core";
 
 export async function signOut() {

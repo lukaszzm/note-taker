@@ -1,3 +1,4 @@
+import { getProxyUrl } from "@/features/shared/lib/proxy";
 import Link from "next/link";
 
 interface HelperTextProps {
@@ -5,17 +6,20 @@ interface HelperTextProps {
 }
 
 export function HelperText({ variant }: HelperTextProps) {
+  const signInHref = getProxyUrl("/sign-in");
+  const signUpHref = getProxyUrl("/sign-up");
+
   const config =
     variant === "sign-in"
       ? {
           question: "Don't have an account?",
           trigger: "Sign up",
-          href: "/sign-up",
+          href: signUpHref,
         }
       : {
           question: "Already have an account?",
           trigger: "Sign in",
-          href: "/sign-in",
+          href: signInHref,
         };
 
   return (

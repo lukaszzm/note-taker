@@ -6,9 +6,10 @@ import { toast } from "sonner";
 
 interface RemoveNoteProps {
   noteId: string;
+  noteByIdApiUrl: string;
 }
 
-export function RemoveNote({ noteId }: RemoveNoteProps) {
+export function RemoveNote({ noteId, noteByIdApiUrl }: RemoveNoteProps) {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -22,7 +23,7 @@ export function RemoveNote({ noteId }: RemoveNoteProps) {
     },
   });
 
-  const onRemove = () => mutate(noteId);
+  const onRemove = () => mutate({ noteId, noteUrl: noteByIdApiUrl });
 
   return (
     <DropdownMenuItem variant="destructive" onClick={onRemove}>

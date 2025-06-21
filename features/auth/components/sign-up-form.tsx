@@ -42,7 +42,7 @@ export function SignUpForm() {
       const result = await signUp(credentials);
 
       if (result.success) {
-        router.push("/dashboard");
+        router.push(result.url);
       } else {
         setAuthError(result.error);
       }

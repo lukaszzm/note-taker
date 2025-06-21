@@ -5,7 +5,11 @@ import { signOut } from "@/features/auth/actions/sign-out-action";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
-export function SignOut(props: ButtonProps) {
+interface SignOutProps extends ButtonProps {
+  homeHref: string;
+}
+
+export function SignOut({ homeHref, ...props }: SignOutProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -13,7 +17,7 @@ export function SignOut(props: ButtonProps) {
     startTransition(async () => {
       const result = await signOut();
       if (result.success) {
-        router.push("/");
+        router.push(homeHref);
       }
     });
   };

@@ -1,7 +1,7 @@
-import { Note } from "@/app/types";
+import { Note } from "@/types";
 
-export async function getNotes(): Promise<Note[]> {
-  const response = await fetch("/api/notes", {
+export async function getNotes(url: string): Promise<Note[]> {
+  const response = await fetch(url, {
     method: "GET",
   });
 

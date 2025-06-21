@@ -29,7 +29,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export function CreateNote() {
+interface Props {
+  notesApiHref: string;
+}
+
+export function CreateNote({ notesApiHref }: Props) {
   const [open, setOpen] = useState(false);
 
   const queryClient = useQueryClient();
@@ -55,7 +59,11 @@ export function CreateNote() {
     },
   });
 
-  const onSubmit = (data: NotePayload) => mutate(data);
+  const onSubmit = (data: NotePayload) =>
+    mutate({
+      payload: data,
+      url: notesApiHref,
+    });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

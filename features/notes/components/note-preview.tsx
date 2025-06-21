@@ -1,4 +1,4 @@
-import { Note } from "@/app/types";
+import { Note } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

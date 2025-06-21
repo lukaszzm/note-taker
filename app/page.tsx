@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LogsIcon } from "lucide-react";
+import { getProxyUrl } from "@/features/shared/lib/proxy";
 
 export const metadata = {
   title: "Notomatic",
@@ -8,11 +9,15 @@ export const metadata = {
 };
 
 export default function Home() {
+  const homeHref = getProxyUrl(null);
+  const signInHref = getProxyUrl("/sign-in");
+  const signUpHref = getProxyUrl("/sign-up");
+
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100">
       <header className="flex items-center justify-between w-full px-6 py-4">
         <Link
-          href="/"
+          href={homeHref}
           aria-label="Home page"
           className="flex items-center gap-2"
         >
@@ -22,7 +27,7 @@ export default function Home() {
 
         <nav>
           <Button size="lg" variant="outline" asChild>
-            <Link href="/sign-in">Sign In</Link>
+            <Link href={signInHref}>Sign In</Link>
           </Button>
         </nav>
       </header>
@@ -37,7 +42,7 @@ export default function Home() {
           student, professional, or just someone who loves to jot down ideas...
         </p>
         <Button size="lg" className="max-w-sm mx-auto" asChild>
-          <Link href="/sign-up">Get Started</Link>
+          <Link href={signUpHref}>Get Started</Link>
         </Button>
       </main>
     </div>

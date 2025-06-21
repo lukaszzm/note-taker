@@ -1,5 +1,12 @@
-export async function removeNote(noteId: string): Promise<void> {
-  const response = await fetch(`/api/notes/${noteId}`, {
+export async function removeNote({
+  noteId,
+  noteUrl,
+}: {
+  noteId: string;
+  noteUrl: string;
+}): Promise<void> {
+  const urlWithNoteId = noteUrl.replace(":noteId", noteId);
+  const response = await fetch(urlWithNoteId, {
     method: "DELETE",
   });
 
