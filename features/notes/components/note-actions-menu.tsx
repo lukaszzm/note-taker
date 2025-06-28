@@ -11,6 +11,7 @@ import { NotePreviewTrigger } from "@/features/notes/components/note-preview-tri
 import { RemoveNote } from "@/features/notes/components/remove-note";
 import { EllipsisVertical } from "lucide-react";
 import { useState } from "react";
+import { RemoveConfirm } from "@/features/notes/components/remove-confirm";
 
 interface NoteActionsMenuProps {
   note: Note;
@@ -23,6 +24,7 @@ export function NoteActionsMenu({
   noteByIdApiUrl,
   notePdfApiUrl,
 }: NoteActionsMenuProps) {
+  const [isRemoveConfirmOpen, setIsRemoveConfirmOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   return (
@@ -41,13 +43,19 @@ export function NoteActionsMenu({
             noteTitle={note.title}
             notePdfApiUrl={notePdfApiUrl}
           />
-          <RemoveNote noteId={note.id} noteByIdApiUrl={noteByIdApiUrl} />
+          <RemoveNote onClick={() => setIsRemoveConfirmOpen(true)} />
         </DropdownMenuContent>
       </DropdownMenu>
       <NotePreview
         note={note}
         open={isPreviewOpen}
         toggleOpen={setIsPreviewOpen}
+      />
+      <RemoveConfirm
+        noteId={note.id}
+        noteByIdApiUrl={noteByIdApiUrl}
+        open={isRemoveConfirmOpen}
+        toggleOpen={setIsRemoveConfirmOpen}
       />
     </>
   );
