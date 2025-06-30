@@ -20,6 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { createNote } from "@/features/notes/data/create-note";
 import { NotePayload, noteSchema } from "@/features/notes/schemas/note-schema";
@@ -42,6 +43,7 @@ export function CreateNote({ notesApiHref }: Props) {
     resolver: zodResolver(noteSchema),
     defaultValues: {
       title: "",
+      label: "personal",
       content: "",
     },
   });
@@ -70,7 +72,7 @@ export function CreateNote({ notesApiHref }: Props) {
       <DialogTrigger asChild>
         <Button variant="ghost">Create Note</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="overflow-auto max-h-[90svh]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
@@ -90,6 +92,50 @@ export function CreateNote({ notesApiHref }: Props) {
                       placeholder="Enter your note title here..."
                       {...field}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="label"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Label</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col"
+                    >
+                      <FormItem className="flex items-center gap-3">
+                        <FormControl>
+                          <RadioGroupItem value="personal" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Personal</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center gap-3">
+                        <FormControl>
+                          <RadioGroupItem value="work" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Work</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center gap-3">
+                        <FormControl>
+                          <RadioGroupItem value="university" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          University
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center gap-3">
+                        <FormControl>
+                          <RadioGroupItem value="other" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Other</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

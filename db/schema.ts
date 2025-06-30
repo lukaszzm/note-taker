@@ -1,4 +1,5 @@
 import { relations } from "drizzle-orm";
+import { pgEnum } from "drizzle-orm/pg-core";
 import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 
 export const user = sqliteTable("user", {
@@ -69,6 +70,7 @@ export const note = sqliteTable("note", {
   id: text("id").primaryKey(),
   title: text("title").notNull(),
   content: text("content").notNull(),
+  label: text({ enum: ["work", "personal", "university", "other"] }),
   createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
     () => new Date()
   ),

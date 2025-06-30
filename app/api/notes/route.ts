@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { title, content } = body;
+  const { title, content, label } = body;
 
   if (!title || !content) {
     return new Response("Title and content are required", { status: 400 });
@@ -47,6 +47,7 @@ export async function POST(request: Request) {
       id: crypto.randomUUID(),
       title,
       content,
+      label: label ?? "other",
       userId: session.user.id,
     })
     .returning();
