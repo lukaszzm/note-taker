@@ -15,7 +15,19 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.endsWith(process.env.LOGIN as string) ||
     request.nextUrl.pathname === "/";
 
-  if (!session && !isPublicRoute) {
+  const isPrivateRoute = request.nextUrl.pathname.includes("/dashboard");
+
+  if (session) {
+    if (isPublicRoute) {
+      return NextResponse.redirect(
+        new URL(getProxyUrl("/dashboard"), request.url)
+      );
+    }
+
+    return NextResponse.next();
+  }
+
+  if (isPrivateRoute) {
     return NextResponse.redirect(new URL(getProxyUrl("/sign-in"), request.url));
   }
 

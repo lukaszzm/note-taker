@@ -7,13 +7,14 @@ import { PropsWithChildren } from "react";
 
 export default function DashboardLayout({ children }: PropsWithChildren) {
   const homeHref = getProxyUrl(null);
+  const homeDashboardHref = getProxyUrl("/dashboard");
   const notesApiHref = getProxyUrl("/api/notes");
 
   return (
     <div className="flex flex-col h-screen gap-8 items-center">
       <header className="m-3 p-3 bg-white border border-border rounded-md w-full max-w-lg flex items-center justify-between gap-4">
         <Link
-          href={homeHref}
+          href={homeDashboardHref}
           aria-label="Back to Home page"
           className="flex items-center gap-2"
         >

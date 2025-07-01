@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LogsIcon } from "lucide-react";
 import { getProxyUrl } from "@/features/shared/lib/proxy";
+import { Separator } from "@/components/ui/separator";
 
 export const metadata = {
   title: "Notomatic",
@@ -25,9 +26,12 @@ export default function Home() {
           <span className="text-3xl font-semibold ">Notomatic</span>
         </Link>
 
-        <nav>
-          <Button size="lg" variant="outline" asChild>
+        <nav className="space-x-4">
+          <Button size="lg" variant="ghost" asChild>
             <Link href={signInHref}>Sign In</Link>
+          </Button>
+          <Button size="lg" variant="outline" asChild>
+            <Link href={signInHref}>Get Started</Link>
           </Button>
         </nav>
       </header>
@@ -41,9 +45,15 @@ export default function Home() {
           with a focus on simplicity and ease of use. Whether you&apos;re a
           student, professional, or just someone who loves to jot down ideas...
         </p>
-        <Button size="lg" className="max-w-sm mx-auto" asChild>
-          <Link href={signUpHref}>Get Started</Link>
-        </Button>
+        <div className="flex flex-col items-center w-full max-w-md space-y-4">
+          <Button size="lg" variant="default" className="max-w-64" asChild>
+            <Link href={signInHref}>Sign in with your account</Link>
+          </Button>
+          <Separator />
+          <Button size="lg" variant="outline" asChild>
+            <Link href={signUpHref}>Create a new account</Link>
+          </Button>
+        </div>
       </main>
     </div>
   );
